@@ -1,5 +1,6 @@
 from src.masks import get_mask_account, get_mask_card_number
 
+
 def mask_account_card(info: str) -> str:
     """
     Маскирует номер карты или счета в зависимости от типа.
