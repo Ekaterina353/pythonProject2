@@ -43,4 +43,3 @@ def test_get_date_valid_date(input_date, expected_output):
 def test_get_date_edge_cases(input_date, expected_output):
     """Тест граничных случаев и нестандартных форматов даты."""
     assert get_date(input_date) == expected_output
-
