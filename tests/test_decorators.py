@@ -1,6 +1,7 @@
 import pytest
 from src.decorators import log
 import os
+from typing import Iterable
 
 
 @log()
