@@ -8,6 +8,20 @@ LOG_FILE = os.path.join(LOG_DIR, 'masks.log')
 if not os.path.exists(LOG_DIR):
     os.makedirs(LOG_DIR)
 
+# Создаем логгер для модуля masks
+masks_logger = logging.getLogger("masks_logger")
+masks_logger.setLevel(logging.INFO)  # Уровень логирования
+
+# Создаем обработчик для записи логов в файл для модуля masks
+masks_file_handler = logging.FileHandler(LOG_FILE, mode='w', encoding='utf-8')
+
+# Создаем форматтер для логов для модуля masks
+masks_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+masks_file_handler.setFormatter(masks_formatter)
+
+# Добавляем обработчик к логгеру для модуля masks
+masks_logger.addHandler(masks_file_handler)
+
 # Настраиваем логгер
 logging.basicConfig(
     filename=LOG_FILE,
@@ -50,3 +64,22 @@ def get_mask_account(account_number: str) -> str:
     except ValueError as e:
         logger.exception(f"Ошибка при маскировании номера счета: {e}")
         raise
+
+
+if __name__ == '__main__':
+    # Пример использования
+    try:
+        card_number = "1234567890123456"
+        masked_card = get_mask_card_number(card_number)
+        print(f"Замаскированный номер карты: {masked_card}")
+
+        account_number = "1234567890"
+        masked_account = get_mask_account(account_number)
+        print(f"Замаскированный номер счета: {masked_account}")
+
+        # Пример с неверными данными
+        # get_mask_card_number("1234") # Вызовет ошибку и запишет в лог
+        # get_mask_account("123")  # Вызовет ошибку и запишет в лог
+
+    except ValueError as e:
+        print(f"Произошла ошибка: {e}")
