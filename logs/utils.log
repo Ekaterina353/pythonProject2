@@ -1,0 +1,10 @@
+2025-03-14 16:39:16,204 - utils_logger - INFO - Загрузка транзакций из файла: empty.json
+2025-03-14 16:39:16,205 - utils_logger - ERROR - Ошибка декодирования JSON в файле: empty.json
+2025-03-14 16:39:16,207 - utils_logger - INFO - Загрузка транзакций из файла: nonexistent.json
+2025-03-14 16:39:16,207 - utils_logger - ERROR - Файл не найден: nonexistent.json
+2025-03-14 16:39:16,211 - utils_logger - INFO - Загрузка транзакций из файла: invalid.json
+2025-03-14 16:39:16,211 - utils_logger - ERROR - Ошибка декодирования JSON в файле: invalid.json
+2025-03-14 16:39:16,215 - utils_logger - INFO - Загрузка транзакций из файла: not_a_list.json
+2025-03-14 16:39:16,216 - utils_logger - WARNING - Файл not_a_list.json содержит данные не в формате списка. Возвращается пустой список.
+2025-03-14 16:39:16,219 - utils_logger - INFO - Загрузка транзакций из файла: test_file.json
+2025-03-14 16:39:16,219 - utils_logger - INFO - Успешно загружено 2 транзакций из файла: test_file.json
