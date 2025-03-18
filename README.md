@@ -15,7 +15,11 @@ pip install -r requirements.txt
 ### Маскировка карт и счетов
 
 python
+
 from src.widget.py import mask_account_card
+=======
+from src.widget import mask_account_card
+
 
 
 masked_card = mask_account_card("Visa Platinum 7000792289606361")
@@ -25,7 +29,11 @@ print(masked_card)
 ### Фильтрация операций
 
 python
+
 from src.processing.py import filter_by_state
+=======
+from src.processing import filter_by_state
+
 
 
 filtered_data = filter_by_state(data, 'EXECUTED')
@@ -34,10 +42,15 @@ filtered_data = filter_by_state(data, 'EXECUTED')
 ### Сортировка операций
 
 python
+
 from src.processing.py import sort_by_date
+=======
+from src.processing import sort_by_date
+
 
 
 sorted_data = sort_by_date(data)
+
 
 
 ## Примеры
@@ -71,4 +84,7 @@ pytest
 ### Фикстуры
 
 Для упрощения написания тестов используются фикстуры pytest, предоставляющие тестовые данные и окружение.  Они определены в файле `conftest.py`.
+
+=======
+## Примеры
 
