@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-
+#
 
 def read_transaction_csv(file_csv: str) -> list:
     """Функция считывает финансовые операции из CSV-файла.
