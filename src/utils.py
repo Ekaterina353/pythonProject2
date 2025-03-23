@@ -2,6 +2,8 @@ import json
 import logging
 import os
 from src.external_api import transactions_total
+import re
+from collections import Counter
 
 # Настройка логгера для модуля utils
 LOG_DIR = "logs"
@@ -74,3 +76,35 @@ if __name__ == '__main__':
     else:
         utils_logger.warning("Нет данных о транзакциях для обработки.")
         print("Нет данных о транзакциях для обработки.")
+
+
+def find_transactions_by_description(transactions, search_string):
+    """
+    Фильтрует список транзакций, возвращая те, в описании которых содержится заданная строка поиска.
+
+    Args:
+        transactions (list): Список словарей с данными о банковских операциях.
+        search_string (str): Строка для поиска в описании транзакций.
+
+    Returns:
+        list: Список словарей с операциями, у которых в описании есть строка поиска.
+    """
+    return [
+        transaction
+        for transaction in transactions
+        if re.search(search_string, transaction.get("description", ""), re.IGNORECASE)
+    ]
+
+
+def count_transaction_categories(transactions):
+    """
+    Подсчитывает количество банковских операций каждого типа (категории).
+
+    Args:
+        transactions (list): Список словарей с данными о банковских операциях.
+
+    Returns:
+        dict: Словарь, где ключи - названия категорий, а значения - количество операций в каждой категории.
+    """
+    categories = [transaction.get("description", "") for transaction in transactions]
+    return Counter(categories)

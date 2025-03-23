@@ -1,8 +1,9 @@
 import unittest
 from unittest.mock import mock_open, patch
 from src.utils import load_transactions
-from pathlib import Path
 import json
+import pytest
+from src.utils import find_transactions_by_description, count_transaction_categories
 
 
 class TestUtils(unittest.TestCase):
@@ -47,3 +48,38 @@ class TestUtils(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+@pytest.fixture
+def sample_transactions():
+    return [
+        {"description": "Перевод организации", "amount": 100},
+        {"description": "Открытие вклада", "amount": 200},
+        {"description": "Перевод с карты на карту", "amount": 50},
+        {"description": "Покупка в магазине", "amount": 75},
+    ]
+
+
+def test_find_transactions_by_description(sample_transactions):
+    result = find_transactions_by_description(sample_transactions, "перевод")
+    assert len(result) == 2
+    assert result[0]["description"] == "Перевод организации"
+    assert result[1]["description"] == "Перевод с карты на карту"
+
+
+def test_find_transactions_by_description_case_insensitive(sample_transactions):
+    result = find_transactions_by_description(sample_transactions, "ПЕРЕВОД")
+    assert len(result) == 2
+
+
+def test_find_transactions_by_description_no_match(sample_transactions):
+    result = find_transactions_by_description(sample_transactions, "неизвестно")
+    assert len(result) == 0
+
+
+def test_count_transaction_categories(sample_transactions):
+    result = count_transaction_categories(sample_transactions)
+    assert result["Перевод организации"] == 1
+    assert result["Открытие вклада"] == 1
+    assert result["Перевод с карты на карту"] == 1
+    assert result["Покупка в магазине"] == 1
